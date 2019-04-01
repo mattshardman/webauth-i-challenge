@@ -2,7 +2,7 @@ exports.up = (knex, Promise) => {
     return knex.schema.createTable('users', (tbl) => {
         tbl.increments();
         tbl
-          .string('name', 255)
+          .string('user', 255)
           .notNullable()
           .unique('uq_projects_name');
         tbl
@@ -12,5 +12,5 @@ exports.up = (knex, Promise) => {
 };
 
 exports.down = (knex, Promise) => {
-    return knex.schema.dropTableIfExists('projects');
+    return knex.schema.dropTableIfExists('users');
 };

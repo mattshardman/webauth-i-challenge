@@ -1,16 +1,24 @@
 const express = require("express");
+const cookieParser = require('cookie-parser');
 const { hashSync, compareSync } = require("bcryptjs");
 const helper = require("./data/helpers/userModel");
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
-function hashPassword(req, res, next) {
-  next();
+async function checkLoggedIn(req, res, next) {
+    const { user, token } = req.cookies;
+    if (user && token) {
+        const userData = await helper.logIn(user);
+        const isLoggedIn = userData.token === token
+        res.locals.isLoggedIn = isLoggedIn;
+    }
+    next();
 }
 
-app.use(hashPassword);
+app.use(checkLoggedIn);
 
 app.post("/api/register", (req, res) => {
   const { user, password } = req.body;
@@ -40,8 +48,12 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-app.get("/api/users", (req, res) => {
-    
+app.get("/api/users", async (req, res) => {
+    if (res.locals.isLoggedIn) {
+        const users = await helper.getUsers();
+        res.status(200).json(users);
+    }
+    res.status(400).send("You are not logged in")
 })
 
 app.listen(3000, () => console.log("Listening"));

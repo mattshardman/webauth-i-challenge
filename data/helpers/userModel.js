@@ -9,8 +9,22 @@ function addUser(user) {
 }
 
 async function logIn(user) {
+  try {
     const userData = await db("users").where({ user });
     return userData[0];
+  } catch (e) {
+    return e;
+  }
 }
 
-module.exports = { addUser, logIn };
+async function getUsers(user) {
+  try {
+    const userData = await db("users");
+    const returnedUserData = userData.map(each => each.user);
+    return returnedUserData;
+  } catch (e) {
+    return e;
+  }
+}
+
+module.exports = { addUser, logIn, getUsers };

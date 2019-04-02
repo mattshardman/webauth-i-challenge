@@ -6,7 +6,7 @@ exports.up = (knex, Promise) => {
           .notNullable()
           .unique('uq_projects_name');
         tbl
-          .string('token', 255)
+          .string('hash', 255)
           .notNullable();
       });
 };

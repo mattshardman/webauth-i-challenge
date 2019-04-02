@@ -2,10 +2,13 @@ const knex = require("knex");
 const knexConfig = require("../../knexfile.js");
 const db = knex(knexConfig.development);
 
-function addUser(user) {
-  db.insert(user)
-    .into("users")
-    .then(r => console.log(r));
+async function addUser(user) {
+  try {
+    const result = await db.insert(user).into("users");
+    return user;
+  } catch (e) {
+    return e;
+  }
 }
 
 async function logIn(user) {

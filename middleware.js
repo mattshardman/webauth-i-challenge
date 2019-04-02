@@ -1,4 +1,6 @@
-async function checkLoggedIn(req, res, next) {
+const helper = require("./data/helpers/userModel");
+
+async function protected(req, res, next) {
     const { user, token } = req.cookies;
     if (user && token) {
         const userData = await helper.logIn(user);
@@ -8,4 +10,4 @@ async function checkLoggedIn(req, res, next) {
     next();
 }
 
-module.exports = { checkLoggedIn };
+module.exports = { protected };

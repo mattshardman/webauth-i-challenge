@@ -15,13 +15,13 @@ const sessionConfig = {
 	httpOnly: true,
 	resave: false,
 	saveUninitialized: false,
-//   store: new SessionStore({
-//     knex: require("./data/database/dbConfig"),
-//     tablename: "active_sessions",
-//     sidfieldname: "sid",
-//     createtable: true,
-//     clearInterval: 1000 * 60 * 60
-//   })
+	store: new SessionStore({
+		knex: require("./data/database/dbConfig"),
+		tablename: "active_sessions",
+		sidfieldname: "sid",
+		createtable: true,
+		clearInterval: 1000 * 60 * 60
+	})
 };
 
 const app = express();

@@ -1,5 +1,6 @@
 const express = require("express");
 const routes = express.Router();
+const { protected } = require("../middleware");
 
 const { hashSync, compareSync } = require("bcryptjs");
 const helper = require("../data/helpers/userModel");
@@ -35,31 +36,26 @@ routes.post("/api/auth/login", async (req, res) => {
   }
 });
 
-routes.get('/api/auth/logout', (req, res) => {
+routes.get("/api/auth/logout", (req, res) => {
   const { session } = req;
   if (session) {
     session.destroy(err => {
       if (err) {
-        res.send('error logging out');
+        res.send("error logging out");
       } else {
-        res.send('good bye');
+        res.send("good bye");
       }
     });
   }
 });
 
-routes.get("/api/auth/users", async (req, res) => {
-  const { session } = req;
-  if (session && session.user) {
-    try {
-      const users = await helper.getUsers();
-      return res.status(200).json(users);
-    } catch (e) {
-      return res.status(500).json({ message: "Server error" });
-    }
+routes.get("/api/auth/users", protected, async (req, res) => {
+  try {
+    const users = await helper.getUsers();
+    return res.status(200).json(users);
+  } catch (e) {
+    return res.status(500).json({ message: "Server error" });
   }
-
-  return res.status(400).send("You are not logged in");
 });
 
 module.exports = routes;

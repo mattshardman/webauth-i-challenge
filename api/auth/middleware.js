@@ -1,4 +1,4 @@
-const helper = require("./data/helpers/userModel");
+const helper = require("../../data/helpers/userModel");
 
 function protected(req, res, next) {
   if (req.session && req.session.user) {

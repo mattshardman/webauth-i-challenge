@@ -1,0 +1,31 @@
+{
+  "name": "webauth-i-challenge",
+  "version": "1.0.0",
+  "description": "## Topics",
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-session-knex": "^1.4.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "knex": "^0.16.3",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run-migrations": "knex migrate:make createUserTable"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattshardman/webauth-i-challenge.git"
+  },
+  "keywords": [],
+  "author": "Matt Hardman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattshardman/webauth-i-challenge/issues"
+  },
+  "homepage": "https://github.com/mattshardman/webauth-i-challenge#readme"
+}
